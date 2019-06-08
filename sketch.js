@@ -5,17 +5,18 @@ let radius;
 let rad;
 
 function setup() {
+  frameRate(60);
   createCanvas(windowWidth, windowHeight, WEBGL);
   background(0);
   // put setup code here
-  number = 25;
+  number = 50;
 
   colorMode(RGB, 255, 255, 255, 1);
-  stroke(24, 202, 230, 0.1);
+  stroke(24, 202, 230, 0);
   strokeWeight(1);
-  noFill();
+  fill(0,0,0,0.2);
   blendMode(OVERLAY);
-  radius = 500;
+  radius = 1000;
   rad = 0;
 }
 
@@ -28,24 +29,28 @@ function draw() {
   background(0, 0, 0, 0.9);
   counter += 0.01;
   for (let i = 0; i <= number; i++) {
-    radius = 10 //noise(counter) * 15;
-    rad += 0.01;
-    let speed = 0.5 * i
+    radius = 5 //noise(counter) * 15;
+    rad += 0.05;
+    let speed = i/number 
     let angle = radians(rad);
-    push();
+    //push();
+
+   // rotateZ(PI/number);
     beginShape();
-    //start
-    vertex(0, -windowHeight / 2 + 20, 0);
-    //middle shit
-    vertex(-noise(counter) * radius * 1.4 * i * sin(angle * speed), -200 * noise(counter), radius * i * cos(angle * speed));
-    vertex(-noise(counter) * radius * 1.7 * i * sin(angle * speed), -100 * noise(counter), radius * i * cos(angle * speed));
+    //---------------start
+    curveVertex(0, -windowHeight / 2 + 20, 0);
+    curveVertex(0, -windowHeight / 2 + 20, 0);
+    //---------------middle shit
+    curveVertex(-noise(counter) * radius * 2 * i * sin(angle * speed), -200 * noise(counter), radius * i * cos(angle * speed));
+    //vertex(-noise(counter) * radius * 1.7 * i * sin(angle * speed), -100 * noise(counter), radius * i * cos(angle * speed));
     //vertex(-radius * i * sin(angle * speed), 0, radius * i * cos(angle * speed));
-    vertex(radius * i * cos(angle * speed), +200 * noise(counter), radius * i * sin(angle * speed));
-    //vertex(-radius * i * sin(angle*speed), 100, radius * i * cos(angle*speed));
-    //end
-    vertex(0, windowHeight / 2 - 20, 0);
+    curveVertex(radius * i * cos(angle + speed), +200 * noise(counter), radius * i * sin(angle + speed));
+    curveVertex(-radius * i * sin(angle * speed), 100, radius * i * cos(angle * speed));
+    //---------------end
+    curveVertex(0, windowHeight / 2 - 20, 0);
+    curveVertex(0, windowHeight / 2 - 20, 0);
     endShape();
-    pop();
+    //pop();
   }
 
 }
