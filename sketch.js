@@ -8,7 +8,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   background(0);
   // put setup code here
-  number = 20;
+  number = 70;
 
   colorMode(RGB, 255, 255, 255, 1);
   stroke(24, 202, 230, 0);
@@ -29,12 +29,12 @@ function draw() {
   counter += 0.01;
   for (let i = 0; i <= number; i++) {
     radius = 5 //noise(counter) * 15;
-    rad += 0.05;
-    let speed = 0.1*i 
+    rad += 0.03;
+    let speed = i/number 
     let angle = radians(rad);
     //push();
 
-    rotateZ(PI/36);
+    rotateZ(PI/number);
     beginShape();
     //start
     curveVertex(0, -windowHeight / 2 + 20, 0);
