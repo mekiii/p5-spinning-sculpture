@@ -15,7 +15,7 @@ function setup() {
   strokeWeight(1);
   fill(0,0,0,0.2);
   blendMode(OVERLAY);
-  radius = 500;
+  radius = 1000;
   rad = 0;
 }
 
@@ -29,23 +29,23 @@ function draw() {
   counter += 0.01;
   for (let i = 0; i <= number; i++) {
     radius = 5 //noise(counter) * 15;
-    rad += 0.03;
+    rad += 0.02;
     let speed = i/number 
     let angle = radians(rad);
     //push();
 
     rotateZ(PI/number);
     beginShape();
-    //start
+    //---------------start
     curveVertex(0, -windowHeight / 2 + 20, 0);
     curveVertex(0, -windowHeight / 2 + 20, 0);
-    //middle shit
-    curveVertex(-noise(counter) * radius * 2 * i * sin(angle * speed), -200 * noise(counter), radius * i * cos(angle * speed));
+    //---------------middle shit
+    //curveVertex(-noise(counter) * radius * 2 * i * sin(angle * speed), -200 * noise(counter), radius * i * cos(angle * speed));
     //vertex(-noise(counter) * radius * 1.7 * i * sin(angle * speed), -100 * noise(counter), radius * i * cos(angle * speed));
     //vertex(-radius * i * sin(angle * speed), 0, radius * i * cos(angle * speed));
     //curveVertex(radius * i * cos(angle + speed), +200 * noise(counter), radius * i * sin(angle + speed));
-    curveVertex(-radius * i * sin(angle*speed), 100, radius * i * cos(angle*speed));
-    //end
+    curveVertex(-radius * i * sin(angle * speed), 100, radius * i * cos(angle * speed));
+    //---------------end
     curveVertex(0, windowHeight / 2 - 20, 0);
     curveVertex(0, windowHeight / 2 - 20, 0);
     endShape();
