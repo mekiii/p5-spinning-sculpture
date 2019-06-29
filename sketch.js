@@ -4,17 +4,35 @@ let number;
 let radius;
 let rad;
 
+function preload() {
+  soundFormats('mp3', 'ogg');
+  mySound = loadSound('assets/breathing.mp3');
+}
+
+function togglePlay() {
+  if (mySound.isPlaying()) {
+    mySound.pause();
+  } else {
+    mySound.loop();
+  }
+}
+
+
 function setup() {
   frameRate(60);
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  let cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  cnv.mouseClicked(togglePlay);
+  fft = new p5.FFT();
   background(0);
+
   // put setup code here
-  number = 50;
+  number = 100;
 
   colorMode(RGB, 255, 255, 255, 1);
   stroke(24, 202, 230, 0);
   strokeWeight(1);
-  fill(0,0,0,0.2);
+  //fill(0,0,0,0.1);
+  noFill()
   blendMode(OVERLAY);
   radius = 1000;
   rad = 0;
@@ -25,32 +43,32 @@ let counter = 0;
 
 
 function draw() {
+  waveform = fft.waveform();
 
   background(0, 0, 0, 0.9);
   counter += 0.01;
   for (let i = 0; i <= number; i++) {
-    radius = 5 //noise(counter) * 15;
-    rad += 0.05;
-    let speed = i/number 
+    radius = 350 //noise(counter) * 15;
+    rad += 0.03;
+    let speed = i/(number*2);
     let angle = radians(rad);
-    //push();
+    push();
 
-   // rotateZ(PI/number);
+    rotateZ(PI/8);
+    rotateX(-PI/16);
     beginShape();
     //---------------start
-    curveVertex(0, -windowHeight / 2 + 20, 0);
-    curveVertex(0, -windowHeight / 2 + 20, 0);
+    curveVertex(0, - windowHeight / 2 + 50, 0);
+    curveVertex(0, - windowHeight / 2 + 50, 0);
     //---------------middle shit
-    curveVertex(-noise(counter) * radius * 2 * i * sin(angle * speed), -200 * noise(counter), radius * i * cos(angle * speed));
-    //vertex(-noise(counter) * radius * 1.7 * i * sin(angle * speed), -100 * noise(counter), radius * i * cos(angle * speed));
-    //vertex(-radius * i * sin(angle * speed), 0, radius * i * cos(angle * speed));
-    curveVertex(radius * i * cos(angle + speed), +200 * noise(counter), radius * i * sin(angle + speed));
-    curveVertex(-radius * i * sin(angle * speed), 100, radius * i * cos(angle * speed));
+    curveVertex(radius*sin(angle* speed),  +waveform[i]*20 , radius * cos(angle * speed));
+
     //---------------end
-    curveVertex(0, windowHeight / 2 - 20, 0);
-    curveVertex(0, windowHeight / 2 - 20, 0);
+    curveVertex(0, windowHeight / 2 - 50, 0);
+    curveVertex(0, windowHeight / 2 - 50, 0);
     endShape();
-    //pop();
+    pop();
+    
   }
 
 }
