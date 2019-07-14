@@ -26,10 +26,10 @@ function setup() {
   background(0);
 
   // put setup code here
-  number = 100;
+  number = 80;
 
   colorMode(RGB, 255, 255, 255, 1);
-  stroke(24, 202, 230, 0);
+  stroke(24, 202, 230, 0.5);
   strokeWeight(1);
   //fill(0,0,0,0.1);
   noFill()
@@ -50,7 +50,7 @@ function draw() {
   for (let i = 0; i <= number; i++) {
     radius = 350 //noise(counter) * 15;
     rad += 0.03;
-    let speed = i/(number*2);
+    let speed = i/(number*5);
     let angle = radians(rad);
     push();
 
@@ -58,14 +58,14 @@ function draw() {
     rotateX(-PI/16);
     beginShape();
     //---------------start
-    curveVertex(0, - windowHeight / 2 + 50, 0);
-    curveVertex(0, - windowHeight / 2 + 50, 0);
+    curveVertex(0, - windowHeight / 2 + 100, 0);
+    curveVertex(0, - windowHeight / 2 + 100, 0);
     //---------------middle shit
-    curveVertex(radius*sin(angle* speed),  +waveform[i]*20 , radius * cos(angle * speed));
+    curveVertex(radius*sin(angle* speed),  50*sin(angle+waveform[i*3]*0.5) + 100 , radius * cos(angle * speed));
 
     //---------------end
-    curveVertex(0, windowHeight / 2 - 50, 0);
-    curveVertex(0, windowHeight / 2 - 50, 0);
+    curveVertex(0, windowHeight / 2 - 200, 0);
+    curveVertex(0, windowHeight / 2 - 200, 0);
     endShape();
     pop();
     
